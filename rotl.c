@@ -1,16 +1,33 @@
 #include "monty.h"
 
 /**
- * rotl - rotates the stack to the top.
- * @stack:double pointer tot he begining of the linked list
- * @line_number: script line number
+ * _rotl - rotates the first element to the bottom and  the second to the top
  *
- * Return: void
+ * @doubly: head of the linked list
+ * @cline: line number;
+ * Return: no return
  */
-void rotl(stack_t **stack, unsigned int line_number)
+void _rotl(stack_t **doubly, unsigned int cline)
 {
-	(void)line_number;
+	stack_t *aux1 = NULL;
+	stack_t *aux2 = NULL;
+	(void)cline;
 
-	if (*stack)
-		*stack = (*stack)->next;
+	if (*doubly == NULL)
+		return;
+
+	if ((*doubly)->next == NULL)
+		return;
+
+	aux1 = (*doubly)->next;
+	aux2 = *doubly;
+
+	for (; aux2->next != NULL; aux2 = aux2->next)
+		;
+
+	aux1->prev = NULL;
+	aux2->next = *doubly;
+	(*doubly)->next = NULL;
+	(*doubly)->prev = aux2;
+	*doubly = aux1;
 }
